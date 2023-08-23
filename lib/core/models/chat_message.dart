@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'dart:convert';
 
 class ChatMessage {
@@ -46,4 +44,9 @@ class ChatMessage {
 
   factory ChatMessage.fromJson(String source) =>
       ChatMessage.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'ChatMessage(id: $id, text: $text, createdAt: $createdAt, userId: $userId, userName: $userName, imageUrl: $imageUrl)';
+  }
 }
