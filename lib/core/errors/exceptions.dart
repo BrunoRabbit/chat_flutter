@@ -7,14 +7,34 @@ class ChatException implements Exception {
 
 class ConnectionException extends ChatException {
   const ConnectionException()
-      : super(message: "Servidor não conectado", errorCode: 500);
+      : super(message: "Tempo esgotado da conexão", errorCode: 522);
+}
+
+class UserNotFound extends ChatException {
+  const UserNotFound()
+      : super(message: "Usuário não encontrado", errorCode: 404);
 }
 
 class InvalidEmail extends ChatException {
   const InvalidEmail()
-      : super(message: "O email já está em uso", errorCode: 400);
+      : super(message: "O email já está em uso", errorCode: 409);
 }
 
 class InvalidToken extends ChatException {
   const InvalidToken() : super(message: "Token inválido", errorCode: 401);
+}
+
+class InternalError extends ChatException {
+  const InternalError()
+      : super(message: "Erro interno do servidor", errorCode: 500);
+}
+
+class DataUpdateNotReceive extends ChatException {
+  const DataUpdateNotReceive()
+      : super(message: "Dados para atualizar não encontrados", errorCode: 400);
+}
+
+class UserLoginFailed extends ChatException {
+  const UserLoginFailed()
+      : super(message: "Email ou senha incorretos", errorCode: 406);
 }
