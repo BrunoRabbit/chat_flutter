@@ -1,29 +1,48 @@
+import 'package:chat_flutter/core/errors/exceptions.dart';
 import 'package:http/http.dart' as http;
 
-class AuthRequestService {
- static Future<http.Response> post({
+abstract class HttpService {
+  Future<http.Response> post({
+    required Uri url,
+    Map<String, String> headers = const {'Content-Type': 'application/json'},
+    Object? body,
+  });
+
+   Future<http.Response> get({
+    required Uri url,
+    Map<String, String> headers = const {'Content-Type': 'application/json'},
+  });
+}
+
+class AuthRequestService extends HttpService {
+  @override
+  Future<http.Response> post({
     required Uri url,
     Map<String, String> headers = const {'Content-Type': 'application/json'},
     Object? body,
   }) async {
-    http.Response response = await http.post(
+    return await http
+        .post(
       url,
       headers: headers,
       body: body,
+    )
+        .timeout(
+      const Duration(seconds: 1),
+      onTimeout: () {
+        throw const ConnectionException();
+      },
     );
-
-    return response;
   }
-
+  
+  @override
   Future<http.Response> get({
     required Uri url,
     Map<String, String> headers = const {'Content-Type': 'application/json'},
   }) async {
-    http.Response response = await http.get(
+    return await http.get(
       url,
       headers: headers,
     );
-
-    return response;
   }
 }

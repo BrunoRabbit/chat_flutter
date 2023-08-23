@@ -52,13 +52,7 @@ class _AuthPageState extends State<AuthPage> {
           formData.password,
         );
       } else {
-        await AuthService().signup(
-          formData.name,
-          formData.email,
-          formData.password,
-          formData.image,
-          formData,
-        );
+        await AuthService().signup(formData);
       }
     } catch (e) {
     } finally {
